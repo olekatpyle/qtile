@@ -47,7 +47,7 @@ images = [
 ]
 wallpaper = random_wp_pickr(images)
 bar_opacity = 1
-bar_bg = ["#1b1c1e"]
+bar_bg = ["#000000"]
 bar_size = 38
 
 # Graphs settings
