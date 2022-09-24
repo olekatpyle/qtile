@@ -1,0 +1,120 @@
+#!/usr/bin/python3
+
+import subprocess
+import tkinter as tk
+import tkinter.font
+from tkinter import ttk
+
+
+class Foobar(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.wm_title("foobar")
+        self.geometry("60x545")
+        self.resizable(False, False)
+        font = "Fira Code Regular Nerd Font Complete Mono"
+
+        # Font
+        font_label = tkinter.font.Font(family=font, size=14)
+        font_button = tkinter.font.Font(family=font, size=30)
+
+        # Style
+        fr_style = ttk.Style()
+        fr_style.configure("TFrame", background="#222222")
+
+        lab_style = ttk.Style()
+        lab_style.configure(
+            "TLabel",
+            foreground="#d75fff",
+            background="#000000",
+            font=font_label,
+            padding=(0, 8),
+        )
+
+        btn_style = ttk.Style()
+        btn_style.configure(
+            "TButton",
+            relief="flat",
+            font=font_button,
+            background="#222222",
+            foreground="#ffffff",
+            padding=(4, 8),
+        )
+
+        btn_style.map(
+            "TButton",
+            foreground=[("pressed", "#d75fff"), ("active", "#d75fff")],
+            background=[("pressed", "!disabled", "#eeeeee"), ("active", "#ffffff")],
+        )
+
+        style_flex = ttk.Style()
+        style_flex.configure(
+            "special.TButton",
+            relief="flat",
+            font=font_button,
+            background="#000000",
+            foreground="#f0f571",
+            padding=(4, 10),
+        )
+        style_flex.map(
+            "special.TButton",
+            foreground=[("pressed", "#000000"), ("active", "#000000")],
+            background=[("pressed", "!disabled", "#d75fff"), ("active", "#ffffff")],
+        )
+
+        frame_btn = ttk.Frame(self, style="TFrame")
+        frame_btn.pack(fill="both")
+
+        label1 = ttk.Label(frame_btn, text="その上", style="TLabel")
+        # refresh qtile
+        btn0 = ttk.Button(
+            frame_btn, text="\uf042", style="TButton", command=self.refresh
+        )
+        # sleep
+        btn1 = ttk.Button(frame_btn, text="\uf236", style="TButton", command=self.sleep)
+        # suspend to disk
+        btn2 = ttk.Button(
+            frame_btn, text="\uf0c7", style="TButton", command=self.hibernate
+        )
+        # logout of session
+        btn3 = ttk.Button(
+            frame_btn, text="\uf2be", style="TButton", command=self.logout
+        )
+        # reboot
+        btn4 = ttk.Button(
+            frame_btn, text="\ue206", style="TButton", command=self.reboot
+        )
+        # shutdown
+        btn5 = ttk.Button(
+            frame_btn, text="\uf2da", style="TButton", command=self.shutdown
+        )
+        label2 = ttk.Label(frame_btn, text="    下    ", style="TLabel")
+
+        for widget in frame_btn.winfo_children():
+            widget.pack()
+
+    def sleep(self):
+        subprocess.run("sudo s2ram -f", shell=True)
+        self.destroy()
+
+    def hibernate(self):
+        subprocess.run("sudo systemctl hibernate", shell=True)
+        self.destroy()
+
+    def logout(self):
+        subprocess.run("loginctl terminate-user $USER --no-ask-password", shell=True)
+
+    def reboot(self):
+        subprocess.run("sudo reboot now", shell=True)
+
+    def shutdown(self):
+        subprocess.run("sudo shutdown now", shell=True)
+
+    def refresh(self):
+        subprocess.run("autorandr --change", shell=True)
+        self.destroy()
+
+
+if __name__ == "__main__":
+    foobar = Foobar()
+    foobar.mainloop()
