@@ -4,7 +4,7 @@ from libqtile.config import Match
 lay_def = {"focus": "#FFFFFF", "unfocus": "#000000", "b_width": 1, "margin": 10}
 
 layouts = [
-    layout.Max(margin=5),
+    layout.Max(margin=0),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
