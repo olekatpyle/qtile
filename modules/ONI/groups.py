@@ -18,11 +18,11 @@ groups = [
         ],
         single=True,
     ),
-    Group("a", label="一", layout="MonadTall"),
+    Group("a", label="一", layout="Max"),
     Group(
         "s",
         label="二",
-        layout="MonadTall",
+        layout="Max",
         matches=[
             Match(wm_class=["firefox"]),
             Match(wm_class=["chromium"]),

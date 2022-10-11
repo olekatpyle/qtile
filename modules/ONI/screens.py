@@ -1,13 +1,10 @@
-from libqtile import hook
 from libqtile import bar
 from .widgets import *
-from .groups import groups
 from libqtile.config import Screen
 from libqtile.lazy import lazy
 import os
 import subprocess
 import random
-
 
 # check what display setup we are using (single monitor or double)
 def setup_display() -> str:
@@ -37,24 +34,22 @@ images = [
     "onigeisha.jpg",
     "sadgirl.jpg",
     "fishgirl.jpg",
+    "onigirl.jpg",
     "onigirl1.jpg",
-    "onigirl2.jpg",
-    "onigirl4.jpg",
-    "onigirl3.jpg",
-    "maskgirl.jpg",
+    # "onigirl4.jpg",
+    # "onigirl3.jpg",
+    "oniboy.jpg",
+    # "maskgirl.jpg",
     "maskgirl2.jpg",
     "maskgirl3.jpg",
+    "calmgirl1.jpg",
+    "vaporgirl2.png",
 ]
-wallpaper = random_wp_pickr(images)
+# wallpaper = random_wp_pickr(images)
+wallpaper = "/home/olek/.atpyle/assets/screen/win_x64.png"
 bar_opacity = 1
 bar_bg = ["#000000"]
-bar_size = 38
-
-# Graphs settings
-g_space = 20
-g_bg = "#000000"
-g_bor_col = "#4a4a4a"
-g_mar_y = 4
+bar_size = 40
 
 main = bar.Bar(
     [
@@ -62,7 +57,7 @@ main = bar.Bar(
         widget.Image(
             filename=home + "/.config/qtile/eos-c.png",
             # filename=home + "/.local/assets/icons/blackhole.ico",
-            margin=3,
+            margin=5.5,
             mouse_callbacks={
                 "Button1": lazy.group["ddm"].dropdown_toggle("SessionManager")
             },
@@ -74,7 +69,7 @@ main = bar.Bar(
             active="#3de5a7",
             inactive="#ffffff",
             center_aligned=True,
-            margin=4,
+            margin=5.5,
             padding=4,
             spacing=6,
             highlight_method="block",
@@ -85,7 +80,9 @@ main = bar.Bar(
             other_screen_border="#5a5a5a",
             urgent_border="#f16e00",
         ),
-        widget.CurrentLayoutIcon(background="#5a5a5a", padding=0, scale=0.7),
+        widget.CurrentLayoutIcon(
+            background="#5a5a5a", margin=5.5, padding=0, scale=0.7
+        ),
         widget.Spacer(length=bar.STRETCH),
         volume,
         widget.Systray(
@@ -98,7 +95,6 @@ main = bar.Bar(
             padding=2,
             mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("kitty -e calcurse")},
         ),
-        # widget.BatteryIcon(update_interval=1, theme_path='/home/olek/bin/qtile/libqtile/resources/battery-icons/'),
         widget.Spacer(length=10),
     ],
     # margin=[0, 5, 0, 5],
